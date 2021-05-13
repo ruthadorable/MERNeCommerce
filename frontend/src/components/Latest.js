@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Card} from 'react-bootstrap'
-import latest from '../latest'
+
 import Rating from './Rating'
 const Latest = ({product}) => {
     return (

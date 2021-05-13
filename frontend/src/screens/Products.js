@@ -7,6 +7,7 @@ import {Link,Nav,Container} from 'react-bootstrap'
 import {useState} from 'react'
 /*import { values } from '../../../backend/data/allproducts';*/
 function Products() {
+
   const [searchTerm, setSearchTerm] = useState("");
   return (
 
@@ -46,7 +47,7 @@ function Products() {
         </div>
         <div class="row store-items">
           {allproducts.filter((val) => {
-            if (searchTerm == "")
+            if (searchTerm === "")
               return val;
             else if (val.name.toLowerCase().includes(searchTerm.toLowerCase()))
               return val;

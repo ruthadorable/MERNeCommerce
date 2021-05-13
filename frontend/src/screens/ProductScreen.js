@@ -2,20 +2,37 @@ import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import Rating from '../components/Rating'
 import Product from '../components/Product'
+import products from '../allproducts'
+import {useDispatch,useSelector} from 'react-redux'
 import {Row,Col,Image,ListGroup,Card,Button,Container,Form} from 'react-bootstrap'
 import axios from 'axios'
-
-const ProductScreen = ({match}) => {
+import '../style.css'
+import {listProductDetails} from '../actions/productActions'
+import { addToCart } from '../actions/cartActions'
+const ProductScreen = ({history,match}) => {
+    const [qty,setQty]=useState(0)
     /**fetching databfrom backend*/ 
-    const [product,setProduct]=useState({})
+  /* const [product,setProduct]=useState({})
     useEffect(()=>{
         const fetchProduct = async()=>{
             const {data}=await axios.get(`/api/allproducts/${match.params.id}`)
             setProduct(data)
         }
         fetchProduct()
-    },[])
-    
+    },[])*/
+    const product=products.find((p)=>p._id===match.params.id)
+    const addToCartHandler=()=>{
+        history.push(`/cart/${match.params.id}?qty=${qty}`)
+    }
+    useEffect(()=>{
+        if(product._id){
+            dispatch(addToCart(product._id,qty))
+        }
+    },[dispatch,product._id,qty])
+
+    const removeFromCartHandler= (id)=>{
+        console.log('remove')
+    }
     return (
         <section id="store" class="store py-5">
         <Container>
@@ -58,6 +75,8 @@ const ProductScreen = ({match}) => {
                         <ListGroup.Item>
                         <Form.Control
                                 as="select"
+                                value={qty}
+                                onChange={(e)=>dispatch(addToCart(product._id,Number(e.target.value)))}
                                 className="my-1 mr-sm-2"
                                 id="inlineFormCustomSelectPref"
                                 custom
@@ -78,8 +97,11 @@ const ProductScreen = ({match}) => {
                             </Form.Control>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Button className='btn-block' type='button'>
+                            <Button className='btn-block' type='button' onClick={addToCartHandler}>
                                 <h4>Add to Cart</h4>
+                            </Button>
+                            <Button variant="light" onClick={()=>removeFromCartHandler(product._id)}>
+                                <i className='fas fa-trash'></i>
                             </Button>
                         </ListGroup.Item>
                     </ListGroup>

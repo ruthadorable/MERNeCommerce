@@ -1,0 +1,52 @@
+{
+  "proxy": {
+    "/api/*": {
+      "target": "http://localhost:5000"
+    }
+  },
+  "secure": false,
+  "changeOrigin": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruthadorable/MERNeCommerce.git"
+  },
+  "author": "Ruth Ann Adorable",
+  "bugs": {
+    "url": "https://github.com/ruthadorable/MERNeCommerce/issues"
+  },
+  "homepage": "https://github.com/ruthadorable/MERNeCommerce#readme",
+  "name": "mernecommerce",
+  "version": "1.0.0",
+  "description": "MERN shopping cart app",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-load": "^1.1.16",
+    "is-promise": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.7",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nvm": "0.0.4",
+    "react-combine-reducers": "^1.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
+  }
+}

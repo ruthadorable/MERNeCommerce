@@ -1,18 +1,22 @@
 import React,{useState,useEffect} from 'react'
 import {Row,Col} from 'react-bootstrap'
-import Latest from '../components/Latest'
+import {useDispatch,useSelector} from 'react-redux'
+import AllProducts from '../components/AllProducts'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import latestproducts from '../latest'
+import {listProducts} from '../actions/productActions'
 import axios from 'axios'
 
 const HomeScreen = () =>{
-    const [latest,setProducts]=useState([])
+    const productList=useSelector((state)=>state.productList)
+    const {loading,error,products}=productList
+    const dispatch=useDispatch()
+    
     useEffect(()=>{
-        const fetchProducts = async()=>{
-            const {data}=await axios.get('/api/latestproducts')
-            setProducts(data)
-        }
-        fetchProducts()
-        
-    },[])
+        dispatch(listProducts())
+    },[dispatch])
+    
     const styleH1 = {
         fontFamily: 'Open Sans',
         fontSize: 25,
@@ -22,13 +26,17 @@ const HomeScreen = () =>{
     return (
         <>
         <p style={styleH1}>Latest Products</p>
-        <Row>
-            {latest.map(latest=>(
-                <Col sm={12} md={6} lg={4} xl={3}>
-                    <Latest product={latest}/>
-                </Col>
+        {loading ?(<Loader/>)
+        :error?(<Message variant='danger'>{error}</Message>)
+        : (
+       <Row>
+            {latestproducts.map((val)=>(
+                
+                    <AllProducts product={val}/>
+                
             ))}
-        </Row>
+       </Row>
+       )} 
         </>
     )
 }
