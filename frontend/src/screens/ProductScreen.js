@@ -10,7 +10,8 @@ import '../style.css'
 import {listProductDetails} from '../actions/productActions'
 import { addToCart } from '../actions/cartActions'
 const ProductScreen = ({history,match}) => {
-    const [qty,setQty]=useState(0)
+    const [qty,setQty]=useState(1)
+    const dispatch=useDispatch()
     /**fetching databfrom backend*/ 
   /* const [product,setProduct]=useState({})
     useEffect(()=>{
@@ -76,7 +77,7 @@ const ProductScreen = ({history,match}) => {
                         <Form.Control
                                 as="select"
                                 value={qty}
-                                onChange={(e)=>dispatch(addToCart(product._id,Number(e.target.value)))}
+                                onChange={(e) => setQty(e.target.value)}
                                 className="my-1 mr-sm-2"
                                 id="inlineFormCustomSelectPref"
                                 custom
