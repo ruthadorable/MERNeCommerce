@@ -20,6 +20,7 @@ import Cakes from './screens/Cakes'
 const App=()=>{
   
   return(
+    
     <Router>
       <Navbar/>
       <Header/>
@@ -36,7 +37,7 @@ const App=()=>{
          <Route path='/about' component={AboutmeScreen} exact/>
          <Route path='/signup' component={SignupScreen} exact/>
          <Route path='/cart' component={CartScreen} exact/>
-         <Route path='/cart/:id?' component={CartScreen} />
+         <Route path='/cart/:id?' component={CartScreen} exact/>
          <Route path='/login' component={LoginScreen} exact/>
        </Container>
        
